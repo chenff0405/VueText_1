@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <div>
+            <h2>{{message}}</h2>
+        </div>
+    </div>
+    <template id="rot">
+        <h2>{{message}}</h2>
+    </template>
+
+    <script>
+        const app = Vue.createApp({
+            template:'#rot',
+            data(){
+                return{
+                    message:'<h2>Hello Vue3</h2>'
+                }
+            }
+        })
+        
+        const root = app.mount("#root")
+    </script>
+</body>
+</html>
