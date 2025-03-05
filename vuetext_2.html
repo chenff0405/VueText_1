@@ -1,0 +1,72 @@
+<!--
+ * @Author: chenff0405 1781692585@qq.com
+ * @Date: 2025-03-04 11:41:48
+ * @LastEditors: chenff0405 1781692585@qq.com
+ * @LastEditTime: 2025-03-04 12:05:42
+ * @FilePath: \VUEd:\qianduankuangjia\VueText_1\vuetext_2.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <template id="root">
+        <ul>
+           <li v-for="item in includes">
+                <h2>{{item.type}}</h2>
+                <ul>
+                    <li v-for="value in item.contents">
+                        <p>{{value.title}}---{{value.data}}</p>
+                    </li>
+                </ul>
+           </li>
+        </ul>
+    </template>
+
+    <script>
+        const app = Vue.createApp({
+            template: '#root',
+            data() {
+                return {
+                    includes: [{
+                        type: '国内',
+                        contents: [
+                            { title: '强信心 开新局（两会今日谈）', data: '2023-1-1' },
+                            { title: '把中国的发展成就介绍给世界', data: '2023-1-1' },
+                            { title: '大熊猫被泼水，吓得哀鸣？回应来了', data: '2023-1-1' },
+                        ]
+                    },
+                    {
+                        type: '军事',
+                        contents: [
+                            { title: '印陆军订购喷气背包，打造边境作战“钢铁侠”？', data: '2023-1-1' },
+                            { title: '朝鲜试射4枚箭矢2战略巡航导弹', data: '2023-1-1' },
+                            { title: '和平23海军联演落幕', data: '2023-1-1' },
+                        ]
+                    },
+                    {
+                        type: '国际',
+                        contents: [
+                            { title: '外媒：印俄石油交易削弱美元主导地位', data: '2023-1-1' },
+                            { title: '美国6岁男孩故意掏枪打伤老师 检察官：不予起诉', data: '2023-1-1' },
+                            { title: '印度70岁老妇家中被20多只猴子围攻 身受重伤去世', data: '2023-1-1' },
+                        ]
+                    }
+                    ]
+                }
+            }
+        })
+        app.mount("#app")
+    </script>
+
+</body>
+
+</html>
