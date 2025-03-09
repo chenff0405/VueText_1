@@ -1,0 +1,203 @@
+<!--
+ * @Author: chenff0405 1781692585@qq.com
+ * @Date: 2025-03-07 10:36:35
+ * @LastEditors: chenff0405 1781692585@qq.com
+ * @LastEditTime: 2025-03-07 22:48:47
+ * @FilePath: \qianduankuangjia\VueText_1\vueshiyan_1.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f5f5f5;
+        }
+
+        .Box {
+            width: 100%;
+            max-width: 1226px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .Box_top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 58px;
+            width: 1212px;
+        }
+
+        .Box .Box_top h2 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 200;
+            color: #333;
+        }
+
+        .Box .Box_top .more {
+            font-size: 14px;
+            float: left;
+        }
+        .Box .Box_top .more a {
+            text-decoration: none;
+            color: #424242;
+        }
+
+        .products {
+            width: 1226px;
+            height: 614px;
+        }
+
+        .product-item {
+            float: left;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+            text-align: center;
+            height: 614px;
+            width: 234px;
+        }
+
+        .product-item:hover {
+            z-index: 2;
+            -webkit-box-shadow: 0 15px 30px rgba(0, 0, 0, .1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, .1);
+            -webkit-transform: translate3d(0, -2px, 0);
+            transform: translate3d(0, -2px, 0);
+        }
+
+        .product-item img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-right {
+            float: left;
+            display: flex;
+            flex-wrap: wrap;
+            width: 992px;
+            height: 614px;
+        }
+
+        .product-info {
+            background: #fff;
+            padding: 15px;
+            width: 200px;
+            height: 269px;
+            margin-left: 15.5px;
+            margin-bottom: 15px;
+        }
+
+        .product-info:hover {
+            z-index: 2;
+            -webkit-box-shadow: 0 15px 30px rgba(0, 0, 0, .1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, .1);
+            -webkit-transform: translate3d(0, -2px, 0);
+            transform: translate3d(0, -2px, 0);
+        }
+
+        .product-info img {
+            width: 100%;
+            height: auto;
+        }
+
+        .product-info h3 {
+            font-size: 12px;
+            color: #333;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .product-info p {
+            font-size: 12px;
+            color: #b0b0b0;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            margin: 0 12px 10px;
+        }
+
+        .product-info .price {
+            font-size: 12px;
+            color: #ff6700;
+            font-weight: 400;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 229970203陈飞霏 -->
+    <div id="app"></div>
+    <template id="root">
+        <div class="Box">
+            <!-- 头部 -->
+            <div class="Box_top">
+                <h2>{{tt}}</h2>
+                <div class="more">
+                    <a :href="url">{{more}}</a>
+                </div>
+            </div>
+            <!-- 头部eng -->
+
+            <!-- 产品介绍 -->
+            <div class="products">
+                <div class="product-item">
+                    <a :href="url">
+                        <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/55d2e50dd3783b52244ea3938e9dfca7.png?thumb=1&w=234&h=614&f=webp&q=90"
+                            alt="Product Image">
+                    </a>
+                </div>
+                <div class="product-right">
+                    <div class="product-info" v-for="item in lists" :key="item.title">
+                        <img :src="item.imgUrl" alt="Product Image">
+                        <h3>{{item.title}}</h3>
+                        <p>{{item.explore}}</p>
+                        <p class="price">{{item.price}}</p>
+                    </div>
+                </div>
+            </div>
+            产品介绍end
+        </div>
+    </template>
+    <script>
+        const app = Vue.createApp({
+            template: '#root',
+            data() {
+                return {
+                    tt: '手机',
+                    url: 'https://www.mi.com/shop/search?keyword=%E6%89%8B%E6%9C%BA',
+                    more: '查看更多>',
+
+                    lists: [
+                        { imgUrl: 'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202502251811_93715df0882e43e252843e3c7b775570.png?thumb=1&w=250&h=250&f=webp&q=90', title: 'Xiaomi 15 Ultra', explore: '徕卡1英寸主摄 | 徕卡2亿超级长焦 | 徕卡超纯光学系统 | 骁龙8至尊版移动平台 | 6000mAh 小米金沙江电池 | 小米澎湃OS 2', price: '6499元起' },
+                        { imgUrl: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/00eb27ead9512a7f12604ad3469460b6.png?thumb=1&w=250&h=250&f=webp&q=90', title: 'REDMI Turbo 4', explore: 'REDMI Turbo 4 好看又能打', price: '1999元起' },
+                        { imgUrl: 'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202412271148_a4cb76ca76ad26ac81da44ad1a69ebd1.png?thumb=1&w=250&h=250&f=webp&q=90', title: ' Redmi 14C', explore: '【持久续航】5160mAh 大电池', price: '499元起' },
+                        { imgUrl: 'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202411261127_8d9eefc4ea604b3c2c20ef4df1312591.png?thumb=1&w=250&h=250&f=webp&q=90', title: 'REDMI K80 Pro', explore: '骁龙8至尊版 | 2K新国屏 | 全焦段影像', price: '3699元起' },
+                        { imgUrl: 'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202411261112_496adbd3fa76742689e9b8f5c4251efc.png?thumb=1&w=250&h=250&f=webp&q=90', title: 'REDMI K80', explore: '第三代骁龙8|2K新国屏 | 6550mAh 超长续航', price: '2499元起' },
+                        { imgUrl: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/089128152bd814096a99249a487e383d.png?thumb=1&w=250&h=250&f=webp&q=90', title: 'Xiaomi 15', explore: '徕卡光学 Summilux 高速镜头 | 骁龙®8至尊版移动平台 | 5400mAh 小米金沙江电池 小米澎湃OS 2', price: '4499元起' },
+                        { imgUrl: 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5f4d5d4fa89236436e9d44e2b2e6ebac.png?thumb=1&w=250&h=250&f=webp&q=90', title: 'Xiaomi 15 Pro', explore: '徕卡光学 Summilux 高速镜头 | 骁龙®8至尊版移动平台 | 6100mAh 小米金沙江电池 | 小米澎湃OS 2', price: '5299元起' },
+                        { imgUrl: 'https://cdn.cnbj1.fds.api.mi-img.com/nr-pub/202410281157_6e91e1273cb084794dd8301ae6353159.png?thumb=1&w=250&h=250&f=webp&q=90', title: 'Xiaomi 15 定制版', explore: '卡光学 Summilux 高速镜头 | 骁龙®8至尊版移动平台 | 5400mAh 小米金沙江电池 小米澎湃OS 2', price: '4999元起' }
+                    ]
+
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>
