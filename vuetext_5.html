@@ -1,0 +1,242 @@
+<!--
+ * @Author: chenff0405 1781692585@qq.com
+ * @Date: 2025-03-06 10:00:29
+ * @LastEditors: chenff0405 1781692585@qq.com
+ * @LastEditTime: 2025-03-06 20:42:02
+ * @FilePath: \qianduankuangjia\VueText_1\vuetext_5.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            background: url(./img/nav-bg.png) repeat-x left top;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            width: auto;
+            height: 95px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        #app li:first-child .h a {
+            padding: 0 35px;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        #app {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 95px;
+            background-color: red;
+        }
+
+        #app>li {
+            float: left;
+            text-align: center;
+            position: relative;
+        }
+
+        #app li:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: -115px;
+            top: 30px;
+            height: 40px;
+            width: 1px;
+            background-color: white;
+        }
+
+        #app li:first-child .h a {
+            background: url(./img/nav.png) no-repeat center;
+            background-size: auto 95px;
+        }
+
+        #app li:first-child .h a:hover,
+        #app li:first-child .h a.active {
+            background: url(./img/nav.png) no-repeat center;
+            background-size: auto 100px;
+            color: #fff;
+            background-color: inherit;
+        }
+
+        #app li .h {
+            width: 116px;
+        }
+
+        #app li .h a {
+            font-size: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        #app li .h a span {
+            font-weight: bold;
+        }
+
+        #app li .h a small {
+            font-size: 13px;
+            padding-top: 5px;
+        }
+
+        #app li .h a:hover,
+        #app li .h a.active {
+            color: #fff;
+            background: url(./img/nav.png) no-repeat center;
+        }
+
+        #app li .m a {
+            font-size: 14px;
+            background: red;
+            width: 116px;
+            height: 35px;
+            line-height: 35px;
+        }
+
+        #app li .m a:hover {
+            color: #fff;
+            background: #d90616;
+        }
+
+        #app li ul {
+            position: absolute;
+            left: 0;
+            top: 95px;
+            margin-top: 0;
+            font-size: 12px;
+            background-color: red;
+            padding: 5px 0;
+        }
+
+        #app li ul li {
+            margin: 5px 0;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 229970203陈飞霏 -->
+    <div id="app" v-cloak>
+        <li v-for="menu in menus" @mouseover="menu.show = true; menu.active = true"
+            @mouseout="menu.show = false; menu.active = false">
+            <div class="h">
+                <a :href="menu.url || '#'" :class="{ active: menu.active }">
+                    <span>{{menu.name}}</span>
+                    <small>{{menu.englishName}}</small>
+                </a>
+            </div>
+            <ul v-show="menu.show">
+                <li v-for="subMenu in menu.subMenus || []">
+                    <div class="m"><a :href="subMenu.url">{{subMenu.name}}</a></div>
+                </li>
+            </ul>
+        </li>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    menus: [
+                        {
+                            name: '首页', englishName: 'Home'
+                        },
+                        {
+                            name: '关于红岩', englishName: 'HongYan', url: '#', show: false, subMenus: [
+                                { name: '红岩文化', url: '#' },
+                                { name: '博物馆机构', url: '#' },
+                                { name: '历史沿革', url: '#' },
+                            ]
+                        },
+                        {
+                            name: '公告动态', englishName: 'Dynamics', url: '#', show: false, subMenus: [
+                                { name: '文博信息', url: '#' },
+                                { name: '政务平台', url: '#' },
+                                { name: '公告', url: '#' },
+                                { name: '专题报道', url: '#' },
+                            ]
+                        },
+                        {
+                            name: '馆藏精品', englishName: 'Collections', url: '#', show: false, subMenus: [
+                                { name: '一级文物', url: '#' },
+                                { name: '二级文物', url: '#' },
+                                { name: '三级文物', url: '#' },
+                            ]
+                        },
+                        {
+                            name: '陈列展览', englishName: 'Exhibition', url: '#', show: false, subMenus: [
+                                { name: '虚拟展览', url: '#' },
+                                { name: '基本陈列', url: '#' },
+                                { name: '复原陈列', url: '#' },
+                                { name: '临时展览', url: '#' },
+                                { name: '展览交流', url: '#' },
+                            ]
+                        },
+                        {
+                            name: '研究开发', englishName: 'Research', url: '#', show: false, subMenus: [
+                                { name: '历史研究', url: '#' },
+                                { name: '艺术创作', url: '#' },
+                                { name: '影音在线', url: '#' },
+                                { name: '文创产品', url: '#' },
+                            ]
+                        },
+                        {
+                            name: '公共教育', englishName: 'Education', url: '#', show: false, subMenus: [
+                                { name: '党性教育', url: '#' },
+                                { name: '爱国主义教育', url: '#' },
+                                { name: '研学实践教育', url: '#' },
+                                { name: '科普教育', url: '#' },
+                            ]
+                        },
+                        {
+                            name: '参观服务', englishName: 'Service', url: '#', show: false, subMenus: [
+                                { name: '景点介绍', url: '#' },
+                                { name: '景区登记', url: '#' },
+                                { name: '志愿服务', url: '#' },
+                                { name: '服务内容', url: '#' },
+                            ]
+                        },
+                        {
+                            name: '景区登记', englishName: 'Reservation',
+                        }
+                    ]
+
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+</body>
+
+</html>
