@@ -1,0 +1,56 @@
+<!--
+ * @Author: chenff0405 1781692585@qq.com
+ * @Date: 2025-03-13 10:04:23
+ * @LastEditors: chenff0405 1781692585@qq.com
+ * @LastEditTime: 2025-03-14 10:54:07
+ * @FilePath: \qianduankuangjia\VueText_1\vuetext_10.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <template id="root">
+        <ul>
+            <li v-for="(v,i) in list">
+                <span @dblclick="change(i)" v-if="!v.edit">
+                    {{v.text}}
+                </span>
+                <input type="text" v-if="v.edit" v-model="v.text" @blur="recovery(i)" @keydown.enter="recovery(i)">
+            </li>
+        </ul>
+    </template>
+    <script>
+        const app = Vue.createApp({
+            template: "#root",
+            data() {
+                return {
+                    list: [
+                        //edit 定义是否为可编辑文本
+                        { text: '学习Vue', edit: false },
+                        { text: '学习Rect', edit: false },
+                        { text: '学习Angular', edit: false }
+                    ]
+                }
+            },
+            methods: {
+                change(i) {
+                    this.list[i].edit = true;
+                },
+                recovery(i) {
+                    this.list[i].edit = false;
+                }
+            }
+        }).mount("#app")
+    </script>
+</body>
+
+</html>

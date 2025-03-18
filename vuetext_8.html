@@ -1,0 +1,116 @@
+<!--
+ * @Author: chenff0405 1781692585@qq.com
+ * @Date: 2025-03-13 08:50:12
+ * @LastEditors: chenff0405 1781692585@qq.com
+ * @LastEditTime: 2025-03-13 09:41:14
+ * @FilePath: \qianduankuangjia\VueText_1\vuetext_8.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        /* .box{
+            width: 20px;
+            height: 20px;
+            background-image: url("../VueText_1/img/close.jpg");
+            background-size: 20px,20px;
+        } */
+    </style>
+</head>
+
+<body>
+    <!-- <div id="app"></div>
+    <template id="root"> -->
+        <!-- <div>
+          <div class="box" @click="closepic"></div> -->
+          <!-- 第一种可以引用原生的js -->
+          <!-- <img src="../VueText_1/img/1.jpg" alt="" style="width: 120px;height: 200px;" class="ad"> -->
+
+          <!-- 第二种用ref拿某个元素 -->
+          <!-- <img src="../VueText_1/img/1.jpg" alt="" style="width: 120px;height: 200px;" ref="ad">
+        </div> -->
+
+
+
+        <!-- <div id="app"></div>
+        <template id="root">
+            <div>
+                <button @click="inum(mynum)">+</button>
+                <input type="text" v-model="count">
+                <button @click="dnum(mynum)">-</button>
+            </div>
+        </template> -->
+
+        <!-- 传入事件对象 -->
+        <div id="app"></div>
+        <template id="root">
+            <div style="width: 50px;height: 100px; background-color:pink;" @mousemove="move($event)"></div>
+            <span>{{x}}---{{y}}</span>
+        </template>
+        <script>
+              const app = Vue.createApp({
+                template: '#root',
+                data() {
+                    return {
+                        x:0,
+                        y:0
+                    }
+                },
+                methods: {
+                   move(e){
+                    // console.log(e.x,e.y);
+                    this.x = e.offsetX;
+                    this.y = e.offsetY;
+                   }
+                }
+            }).mount("#app")
+
+
+
+            // const app = Vue.createApp({
+            //     template: '#root',
+            //     data() {
+            //         return {
+            //             count: 0,
+            //             mynum: 5
+            //         }
+            //     },
+            //     methods: {
+            //         inum(value) {
+            //             //this 当前组件实例
+            //             this.count += value;
+            //         },
+            //         dnum(value) {
+            //             this.count -= value;
+            //         }
+            //     }
+            // }).mount("#app")
+
+            // const app = Vue.createApp({
+            //     template: '#root',
+            //     data() {
+            //         return {
+                        
+            //         }
+            //     },
+            //     methods: {
+            //         closepic(){
+            //             //document.querySelector(".ad").style.display='none';
+            //             this.$refs.ad.style.display="none";
+            //         }
+            //     }
+            // }).mount("#app")
+        </script>
+</body>
+
+</html>

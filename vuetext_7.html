@@ -1,0 +1,122 @@
+<!--
+ * @Author: chenff0405 1781692585@qq.com
+ * @Date: 2025-03-11 10:56:14
+ * @LastEditors: chenff0405 1781692585@qq.com
+ * @LastEditTime: 2025-03-13 08:38:56
+ * @FilePath: \VUEd:\qianduankuangjia\VueText_1\vuetext_7.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>jiantingshuxing</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <template id="root">
+        <p>计数器：{{counter}}</p>
+        <button @click="counter++">点我</button>
+        <div>
+            <span>小时：</span>
+            <input type="text" v-model="hour" @focus="currentlyActiveField = 'hour'">
+            <span>分钟：</span>
+            <input type=" text" v-model="minutes" @focus="currentlyActiveField = 'minutes'">
+            <p>姓名：</p>
+            <span v-model="name">{{info.name}}</span>
+            <p>年龄：</p>
+            <p v-model="age">{{info.age}}</p>
+            <button @click="modifyName()">修改</button>
+
+        </div>
+    </template>
+    <script>
+        
+        const app = Vue.createApp({
+            template: '#root',
+            data() {
+                return {
+                    counter: 1,
+                    hour: 0,
+                    minutes: 0,
+                    info: {
+                        name: 'ff',
+                        age: '13'
+                    }
+                }
+            },
+            // computer:{
+            //     cinfo(){
+            //         return JSON.stringify(this.info)//将原本的类型转换为JSON格式的字符串
+            //     }
+            // },
+            watch: {
+                // hour(nvalue,ovalue){
+                //     console.log(`新值:${nvalue}`,`旧值:${ovalue}`);
+                // },
+                // minutes:{
+                //     handler:function(nvalue,ovalue){
+                //         console.log(`新值:${nvalue}`,`旧值:${ovalue}`);
+                //     }
+                //watch第一种方法
+                hour(nvalue, ovalue) {
+                    if (this.currentlyActiveField === 'hour') {
+                        this.minutes = nvalue * 60;
+                    }
+                    //this.minutes=nvalue*60;
+                    //定时器
+                    //setTimeOut(()=>{
+                    //  this.minutes=nvalue*60;
+                    //},3000);
+                },
+                minutes(nvalue, ovalue) {
+                    if (this.currentlyActiveField === 'minutes') {
+                        this.hour = nvalue / 60;
+                    }
+                },
+                //第一种
+                // 'info.name':function(nvalue,ovalue){
+                // console.log(`新值`,nvalue)
+                //  console.log(`旧值`,ovalue)
+                //}
+                // info(nvalue,ovalue){
+                //     console.log(`新值`,nvalue)
+                //     console.log(`旧值`,ovalue)
+                // }
+                //第二种
+                info: {
+                    handler(nvalue, ovalue) {
+                        console.log(`新值`, nvalue)
+                        console.log(`旧值`, ovalue)
+                    },
+                    deep: true,
+                    immediate: true
+                }
+                //,
+                // cinfo: {
+                //     handler(nvalue, ovalue) {
+                //         console.log(`新值`, JSON.parse(nvalue))
+                //         console.log(`旧值`, JSON.parse(ovalue || "{}")) 
+                //     },
+                //     deep: true, 没有deep就无法监听到内部的属性
+                //     immediate: true  可以看到旧值
+                // }
+            },
+            methods: {
+                modifyName() {
+                    this.info.name = 'lishi'
+                    //this.info={
+                    //   name='lishi',
+                    //   age = '13'
+                    //}
+                }
+            }
+        }).mount(" #app");
+    </script>
+</body>
+
+</html>

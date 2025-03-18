@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <template id="root">
+        <div>
+            <!-- .stop 加在子元素上 -->
+            <div style="width: 200px;height: 200px; background-color:pink;" @click="add1">
+                <div style="width: 100px;height: 100px; background-color:orange;" @click.stop="add2">
+    
+                </div>
+            </div>
+            <!-- .self 只有点击自己才会触发，只监听自己 加在父元素上-->
+            <div style="width: 200px;height: 200px; background-color:red;" @click.self="add3">
+                <div style="width: 100px;height: 100px; background-color:pink;" @click="add4">
+    
+                </div>
+            </div>
+            <!-- .prevent 阻止当前默认事件 -->
+            <a href="http://www.baidu.com" @click.prevent="tz">跳转</a>
+            <a href="http://www.baidu.com" @click="jump($event)">跳转2</a>
+
+            <!-- .enter 回车键按下就触发 -->
+             <button @keydown.enter="show($event)">提交</button>
+             <!-- 可以帮我们获取按下键的keycode -->
+              <!-- keydown 键盘按下 keyup 键盘按下后松开 -->
+             <input type="text" @keydown="show($event)">
+        </div>
+    </template>
+    <script>
+        const app = Vue.createApp({
+            template: "#root",
+            data() {
+                return {
+
+                }
+            },
+            methods:{
+                add1(){
+                    console.log("外部点击")
+                    
+                },
+                add2(){
+                    console.log("内部点击")
+                    //阻止事件冒泡 .stop
+                    //window.event.stopPropagation() 阻止原生事件冒泡
+                },
+                add3(){
+                    console.log("外部点击")
+                    
+                },
+                add4(){
+                    console.log("内部点击")
+                },
+                tz(){
+                    console.log("tz")
+                },
+                jump(e){
+                    e.preventDefalut();//阻止原生默认事件
+                },
+                show(e){
+                    console.log(e.key,keycode)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
