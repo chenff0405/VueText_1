@@ -1,0 +1,145 @@
+<!--
+ * @Author: chenff0405 1781692585@qq.com
+ * @Date: 2025-03-21 10:20:31
+ * @LastEditors: chenff0405 1781692585@qq.com
+ * @LastEditTime: 2025-03-24 21:12:25
+ * @FilePath: \qianduankuangjia\VueText_2\vueshiyan2\vueshiyan2_2.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/inputnumber.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>小米购物车</title>
+</head>
+
+<body>
+    <div class="app-container" id="app">
+        <div class="breadcrumb">
+            <img class="logo" src="img/7.png" alt="">
+            <span class="span1">我的购物车</span>
+            <span class="span2">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</span>
+            <span class="span3"> 2909696753 | 我的订单</span>
+        </div>
+        <!-- 购物车主体 -->
+        <div v-if="fruitList.length > 0" class="main">
+            <div class="table">
+                <!-- 头部 -->
+                <div class="thead">
+                    <div class="tr">
+                        <div class="th">
+                            <!-- 全选 -->
+                            <label class="check-all">
+                                <input type="checkbox" v-model="isAll" />
+                                全选
+                            </label>
+                        </div>
+                        <div class="th th-pic">商品名称</div>
+                        <div class="th">单价</div>
+                        <div class="th num-th">数量</div>
+                        <div class="th">小计</div>
+                        <div class="th">操作</div>
+                    </div>
+                </div>
+                <!-- 身体 -->
+                <div class="tbody">
+                    <div v-for="(item,index) in fruitList" :key="item.id" :class="{tr:true,active: item.isChecked}">
+                        <div class="td"><input type="checkbox" class="mycheck" v-model="item.isChecked" /></div>
+                        <div class="td goods"><img v-bind:src="item.icon" alt="" />{{item.name}}</div>
+                        <div class="td">{{item.price}}</div>
+                        <div class="td">
+                            <div class="my-input-number">
+                                <!--当num小于等于1时禁用-号-->
+                                <button :disabled="item.num <= 1" @click="sub(item.id)" class="decrease"> - </button>
+                                <span class="my-input__inner">{{item.num}}</span>
+                                <button @click="add(item.id)" class="increase"> + </button>
+                            </div>
+                        </div>
+                        <div class="td">{{ item.num * item.price }}</div>
+                        <div class="td"><button class="delbutton" v-on:click="del(item.id)">×</button></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 底部 -->
+            <div class="bottom">
+                <div class="leftbox">
+                    <span>继续购物 已选择<span class="textcol">{{totalCount}}</span>件</span>
+                </div>
+                <div class="right-box">
+                    <!-- 所有商品总价 -->
+                    <span class="price-box">合计&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;<span class="price">
+                            {{totalPrice}}</span>元</span>
+                    <!-- 结算按钮 -->
+                    <button class="pay">去结算</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    // 商品列表
+                    fruitList: [],
+                    isAll: false
+                }
+            },
+            async mounted() {
+                const result = await axios.get('https://e390f918-c42d-41a4-aaa2-a4f9d4f3d40c.mock.pstmn.io/order')
+                this.fruitList = result.data;
+            },
+            methods: {
+                sub(id){
+                    const item = this.fruitList.find(fruit => fruit.id ===id);
+                    if(item && item.num > 1){
+                        item.num--;
+                    }
+                },
+                add(id){
+                    const item = this.fruitList.find(fruit => fruit.id ===id);
+                    if(item){
+                        item.num++;
+                    }
+                },
+                del(id){
+                    this.fruitList = this.fruitList.filter(item => item.id !== id);
+                }
+            },
+            watch: {
+                isAll(nvalue) {
+                    this.fruitList.forEach(item => {
+                        item.isChecked = nvalue
+                    });
+                },
+                fruitList: {
+                    handle(){
+                        this.isAll = this.allChecked
+                    },
+                    deep:true
+                }
+            },
+            computed:{
+                allChecked(){
+                    return this.fruitList.length > 0 && this.fruitList.every(item =>item.isChecked)
+                },
+                totalCount(){
+                    return this.fruitList.filter(item => item.isChecked).reduce((sum,item) =>sum  + item.num , 0)
+                },
+                totalPrice(){
+                    return this.fruitList.filter(item => item.isChecked).reduce((sum,item) =>sum  + item.num * item.price , 0)
+                }
+            }
+
+        })
+        var vm = app.mount('#app')
+    </script>
+</body>
+
+</html>
