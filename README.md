@@ -1,2 +1,2 @@
-# VueText_1
+# VueText
 Text
